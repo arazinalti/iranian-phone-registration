@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#071426">
+    <title>MobilQeyd | Nömrə qeydiyyatı</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        :root {
+            --navy: #071426;
+            --gold: #d9bd82;
+            --muted: #a8b7ca;
+            --glass: rgba(255,255,255,.065);
+            --border: rgba(255,255,255,.13);
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            display: grid;
+            place-items: center;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #f4f6fb;
+            background:
+                radial-gradient(ellipse at 12% 12%,
+                    rgba(48,100,166,.32), transparent 40%),
+                radial-gradient(ellipse at 90% 90%,
+                    rgba(192,151,79,.13), transparent 38%),
+                linear-gradient(135deg, #050b16, #0b1d35 55%, #071426);
+        }
+
+        .glow {
+            position: fixed;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            filter: blur(75px);
+            pointer-events: none;
+        }
+
+        .glow-blue {
+            top: 5%;
+            right: 7%;
+            background: rgba(48,116,204,.18);
+        }
+
+        .glow-gold {
+            bottom: 4%;
+            left: 5%;
+            background: rgba(217,189,130,.12);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .brand-icon {
+            width: 62px;
+            height: 62px;
+            margin: 0 auto 16px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(217,189,130,.5);
+            border-radius: 20px;
+            background: rgba(255,255,255,.06);
+            box-shadow: inset 0 1px rgba(255,255,255,.12),
+                        0 12px 35px rgba(0,0,0,.22);
+            color: var(--gold);
+            font-size: 28px;
+        }
+
+        .brand h1 {
+            margin: 0 0 9px;
+            font-size: 29px;
+            font-weight: 650;
+        }
+
+        .brand h1 span { color: var(--gold); }
+
+        .brand p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .card {
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: var(--glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 0 28px 75px rgba(0,0,0,.3),
+                        inset 0 1px rgba(255,255,255,.07);
+        }
+
+        .card h2 {
+            margin: 0 0 9px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .description {
+            margin: 0 0 25px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: #e2e9f3;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 14px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(3,11,24,.42);
+            transition: .2s ease;
+        }
+
+        .input-box:focus-within {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(217,189,130,.1);
+        }
+
+        .phone-icon {
+            color: var(--gold);
+            font-size: 21px;
+        }
+
+        input {
+            width: 100%;
+            min-width: 0;
+            height: 54px;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: white;
+            font: inherit;
+            font-size: 16px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        input::placeholder { color: #71839b; }
+
+        .submit-btn {
+            width: 100%;
+            min-height: 54px;
+            margin-top: 17px;
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 14px;
+            color: white;
+            background: linear-gradient(
+                135deg,
+                rgba(55,111,176,.96),
+                rgba(27,65,113,.96)
+            );
+            box-shadow: 0 9px 25px rgba(0,0,0,.2),
+                        inset 0 1px rgba(255,255,255,.2);
+            font: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform .2s, filter .2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.14);
+        }
+
+        .submit-btn:active { transform: translateY(0); }
+
+        .message {
+            margin-top: 18px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .success {
+            color: #a7f3d0;
+            background: rgba(16,185,129,.1);
+            border: 1px solid rgba(16,185,129,.25);
+        }
+
+        .error {
+            color: #fecaca;
+            background: rgba(239,68,68,.1);
+            border: 1px solid rgba(239,68,68,.25);
+        }
+
+        .privacy {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 21px;
+            color: #9aabc0;
+            font-size: 11px;
+            line-height: 1.9;
+        }
+
+        .privacy-icon {
+            color: var(--gold);
+            font-size: 16px;
+        }
+
+        footer {
+            margin-top: 22px;
+            text-align: center;
+            color: #7f91a9;
+            font-size: 11px;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 18px; }
+            .card { padding: 23px 19px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="glow glow-blue"></div>
+    <div class="glow glow-gold"></div>
+
+    <main class="container">
+        <header class="brand">
+            <div class="brand-icon">✦</div>
+            <h1>Mobil<span>Qeyd</span></h1>
+            <p>Sadə, rahat və etibarlı qeydiyyat sistemi</p>
+        </header>
+
+        <section class="card">
+            <h2>Mobil nömrənin qeydiyyatı</h2>
+            <p class="description">
+                Zəhmət olmasa, mobil nömrənizi daxil edin.
+            </p>
+
+            <form method="POST" action="/">
+                <label for="phone">Mobil nömrə</label>
+
+                <div class="input-box">
+                    <span class="phone-icon">⌕</span>
+                    <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        inputmode="tel"
+                        autocomplete="tel"
+                        placeholder="09123456789"
+                        maxlength="14"
+                        required
+                    >
+                </div>
+
+                <button class="submit-btn" type="submit">
+                    Nömrəni qeydiyyatdan keçir →
+                </button>
+            </form>
+
+            {% if message %}
+            <div class="message {{ message_type }}" role="status">
+                {{ message }}
+            </div>
+            {% endif %}
+
+            <div class="privacy">
+                <span class="privacy-icon">◆</span>
+                <div>
+                    Daxil etdiyiniz məlumatlar qeydiyyat məqsədilə
+                    saxlanılır. Nömrənizi yalnız razılığınızla təqdim edin.
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            MobilQeyd · Sadəlik və etibarlılıq
+        </footer>
+    </main>
+</body>
+</html>
